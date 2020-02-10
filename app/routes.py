@@ -6,13 +6,15 @@ import numpy as np
 def indexHandler():
     return ("index page")
 
-@app.route('/predict', methods=['POST'])
+@app.route('/prediction', methods=['POST'])
 def onlinePredictor():
     print(request.is_json)
     content = request.get_json()
     print(type(content))
     print(content)
-    content[0]['Wage']
-    predict = linreg_deserialized.predict(np.array([[content[0]['Wage']]]))
+    content['Wage']
+    predict = linreg_deserialized.predict(np.array([[content['Wage']]]))
     print(predict)
-    return jsonify(predict.tolist())
+    #return jsonify(predict.tolist())
+    return ("The predicted price, based on wage of {}, is {}".format(content['Wage'],
+                                                                     round(predict[0][0], 2)))
